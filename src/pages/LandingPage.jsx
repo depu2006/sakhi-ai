@@ -1,19 +1,13 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Globe } from 'lucide-react';
+import { Globe, ArrowRight, Shield, Heart, Zap, User } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
+import '../App.css';
 
 const LandingPage = () => {
     const navigate = useNavigate();
     const { t, language, toggleLanguage } = useLanguage();
-
-    const scrollToSection = (id) => {
-        const element = document.getElementById(id);
-        if (element) {
-            element.scrollIntoView({ behavior: 'smooth' });
-        }
-    };
 
     const containerVariants = {
         hidden: { opacity: 0 },
@@ -21,168 +15,240 @@ const LandingPage = () => {
     };
 
     const itemVariants = {
-        hidden: { y: 20, opacity: 0 },
-        visible: { y: 0, opacity: 1 }
+        hidden: { y: 30, opacity: 0 },
+        visible: { y: 0, opacity: 1, transition: { type: 'spring', stiffness: 50 } }
     };
 
     return (
-        <div className="landing-container">
+        <div style={{
+            minHeight: '100vh',
+            fontFamily: "'Inter', sans-serif",
+            background: '#e0f2fe', // Light Blue background as requested
+            color: '#1e293b', // Dark text for contrast
+            overflowX: 'hidden'
+        }}>
+            <style>
+                {`
+                    .glass-card {
+                        background: rgba(236, 72, 153, 0.15); /* Pink tint */
+                        backdrop-filter: blur(10px);
+                        -webkit-backdrop-filter: blur(10px);
+                        border: 1px solid rgba(236, 72, 153, 0.3); /* Pink border */
+                        box-shadow: 0 8px 32px 0 rgba(236, 72, 153, 0.1);
+                        transition: transform 0.3s ease, box-shadow 0.3s ease;
+                    }
+                    .glass-nav {
+                        background: rgba(255, 255, 255, 0.7); /* Lighter nav for light mode */
+                        backdrop-filter: blur(10px);
+                        border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+                    }
+                `}
+            </style>
+
             {/* Navbar */}
-            <nav className="landing-nav">
-                <div className="landing-logo">Sakhi AI</div>
-                <ul className="landing-menu">
-                    <li><a href="#" onClick={() => navigate('/')}>Home</a></li>
-                    <li><a href="#" onClick={() => navigate('/about')}>About</a></li>
-                    <li><a href="#" onClick={() => navigate('/services')}>Services</a></li>
-                    <li><a href="#" onClick={() => navigate('/contact')}>Contact</a></li>
-                </ul>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
-                    <button
-                        onClick={toggleLanguage}
-                        style={{ background: 'none', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px', color: '#6B665F', fontSize: '0.9rem', fontWeight: '500' }}
-                    >
-                        <Globe size={18} /> {language === 'en' ? 'EN' : (language === 'hi' ? 'HI' : 'TE')}
+            <nav className="glass-nav" style={{
+                padding: '20px 40px',
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                position: 'fixed',
+                top: 0,
+                width: '100%',
+                zIndex: 1000
+            }}>
+                <div style={{ fontSize: '1.8rem', fontWeight: '800', letterSpacing: '-1px', display: 'flex', alignItems: 'center', gap: '8px', color: '#0f172a' }}>
+                    <Shield size={32} fill="#0f172a" /> Sakhi AI
+                </div>
+                <div style={{ display: 'flex', gap: '32px', alignItems: 'center' }}>
+                    {['About', 'Services', 'Contact'].map((item) => (
+                        <a key={item} href={`/${item.toLowerCase()}`} onClick={(e) => { e.preventDefault(); navigate(`/${item.toLowerCase()}`); }}
+                            style={{ color: '#334155', textDecoration: 'none', fontWeight: '600', fontSize: '1rem', opacity: 0.9, transition: 'color 0.2s' }}
+                            onMouseOver={(e) => e.target.style.color = '#0ea5e9'}
+                            onMouseOut={(e) => e.target.style.color = '#334155'}
+                        >
+                            {item}
+                        </a>
+                    ))}
+                    <button onClick={toggleLanguage} style={{ background: 'rgba(0,0,0,0.05)', border: 'none', color: '#334155', padding: '8px 16px', borderRadius: '20px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px', fontWeight: '600' }}>
+                        <Globe size={16} /> {language.toUpperCase()}
                     </button>
-                    <button
-                        className="btn-primary"
+                    <motion.button
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
                         onClick={() => navigate('/dashboard/user')}
-                        style={{ padding: '10px 24px', borderRadius: '2px', textTransform: 'uppercase', letterSpacing: '1px', fontSize: '0.8rem' }}
+                        style={{
+                            background: '#0ea5e9', // Blue button to match theme
+                            color: 'white',
+                            border: 'none',
+                            padding: '10px 24px',
+                            borderRadius: '30px',
+                            fontWeight: '700',
+                            cursor: 'pointer',
+                            boxShadow: '0 4px 15px rgba(14, 165, 233, 0.3)'
+                        }}
                     >
-                        Get Started
-                    </button>
+                        GET STARTED
+                    </motion.button>
                 </div>
             </nav>
 
             {/* Hero Section */}
             <motion.div
-                className="landing-content"
                 variants={containerVariants}
                 initial="hidden"
                 animate="visible"
+                style={{
+                    padding: '160px 40px 60px',
+                    maxWidth: '1200px',
+                    margin: '0 auto',
+                    textAlign: 'center'
+                }}
             >
-                {/* Hero Text */}
-                <motion.h1 className="hero-main-title" variants={itemVariants}>
-                    {t('heroSubtitle')}
+                <motion.h1 variants={itemVariants} style={{ fontSize: '4.5rem', fontWeight: '800', margin: '0 0 24px', lineHeight: '1.1', color: '#0f172a' }}>
+                    Safety Reimagined.<br />Freedom Unleashed.
                 </motion.h1>
-                <motion.p className="hero-sub-text" variants={itemVariants}>
-                    We believe in Safety. Less Worry is More Freedom.
+                <motion.p variants={itemVariants} style={{ fontSize: '1.4rem', maxWidth: '700px', margin: '0 auto 60px', opacity: 0.8, lineHeight: '1.6', color: '#334155' }}>
+                    {t('heroSubtitle') || "Your intelligent companion for safety, empowerment, and connection."}
+                    Experience the future of personal security with Sakhi AI.
                 </motion.p>
 
-                {/* Hero Image */}
-                <motion.div className="hero-image-section" variants={itemVariants}>
-                    <img
-                        src="https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?q=80&w=2069&auto=format&fit=crop"
-                        alt="Women empowerment"
-                        className="hero-img"
-                    />
+                <motion.div variants={itemVariants} style={{ display: 'flex', justifyContent: 'center', gap: '20px', flexWrap: 'wrap' }}>
+                    <motion.button
+                        whileHover={{ y: -5 }}
+                        onClick={() => navigate('/dashboard/user')}
+                        style={{
+                            padding: '18px 40px',
+                            fontSize: '1.2rem',
+                            borderRadius: '50px',
+                            border: 'none',
+                            background: '#ec4899', // Pink accent button
+                            color: 'white',
+                            fontWeight: 'bold',
+                            cursor: 'pointer',
+                            boxShadow: '0 10px 30px rgba(236, 72, 153, 0.3)',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '12px'
+                        }}
+                    >
+                        Launch Dashboard <ArrowRight size={20} />
+                    </motion.button>
                 </motion.div>
+            </motion.div>
 
-                {/* Portal Cards */}
-                <div className="portal-grid">
-                    {/* User Portal */}
+            {/* Feature Portal Grid */}
+            <motion.div
+                variants={containerVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(2, 1fr)', // 2x2 Grid per request
+                    gap: '40px',
+                    maxWidth: '1000px',
+                    margin: '0 auto 100px',
+                    padding: '0 40px'
+                }}
+            >
+                <FeatureCard
+                    title={t('userPortal')}
+                    desc={t('userPortalDesc')}
+                    icon={<User size={32} color="#ec4899" />}
+                    img="https://i.pinimg.com/736x/87/de/27/87de27f0d5e799c7ea21406bad92fc9b.jpg"
+                    onClick={() => navigate('/dashboard/user')}
+                />
+                <FeatureCard
+                    title={t('guardianPortal')}
+                    desc={t('guardianPortalDesc')}
+                    icon={<Shield size={32} color="#ec4899" />}
+                    img="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=1780&auto=format&fit=crop"
+                    onClick={() => navigate('/dashboard/guardian')}
+                />
+                <FeatureCard
+                    title={t('empowermentPortal')}
+                    desc={t('empowermentPortalDesc')}
+                    icon={<Zap size={32} color="#ec4899" />}
+                    img="https://media.istockphoto.com/id/1496112689/photo/young-multiracial-group-stacking-hands-together-happy-diverse-friends-united-at-community.jpg?s=612x612&w=0&k=20&c=ARk3sEhEElK3M27oN-VcVNtAEULHJzZetRihjLsXuu8="
+                    onClick={() => navigate('/dashboard/empowerment')}
+                />
+                <FeatureCard
+                    title={t('profilePortal')}
+                    desc={t('profilePortalDesc')}
+                    icon={<Heart size={32} color="#ec4899" />}
+                    img="https://img.freepik.com/free-vector/woman-with-long-brown-hair-pink-shirt_90220-2940.jpg?semt=ais_wordcount_boost&w=740&q=80"
+                    onClick={() => navigate('/dashboard/profile')}
+                />
+
+                {/* Special Safe Journey Card - Spanning 2 columns for symmetry in 2x2 */}
+                <motion.div
+                    variants={itemVariants}
+                    style={{ gridColumn: '1 / -1' }}
+                >
                     <motion.div
-                        className="portal-card"
+                        className="glass-card"
+                        whileHover={{ scale: 1.02, boxShadow: '0 20px 40px rgba(236, 72, 153, 0.2)' }}
                         onClick={() => navigate('/dashboard/user')}
-                        variants={itemVariants}
+                        style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            borderRadius: '24px',
+                            cursor: 'pointer',
+                            overflow: 'hidden',
+                            padding: '20px',
+                            background: 'rgba(236, 72, 153, 0.25)', // Slightly stronger pink for emphasis
+                            border: '1px solid rgba(236, 72, 153, 0.4)'
+                        }}
                     >
-                        <div className="portal-image-container">
-                            <img
-                                src="https://i.pinimg.com/736x/87/de/27/87de27f0d5e799c7ea21406bad92fc9b.jpg"
-                                alt="User Portal"
-                                className="portal-image"
-                            />
-                        </div>
-                        <div className="portal-info">
-                            <h3 className="portal-title">{t('userPortal')}</h3>
-                            <p className="portal-desc">{t('userPortalDesc')}</p>
-                        </div>
-                    </motion.div>
-
-                    {/* Guardian Portal */}
-                    <motion.div
-                        className="portal-card"
-                        onClick={() => navigate('/dashboard/guardian')}
-                        variants={itemVariants}
-                    >
-                        <div className="portal-image-container">
-                            <img
-                                src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=1780&auto=format&fit=crop"
-                                alt="Guardian Portal"
-                                className="portal-image"
-                            />
-                        </div>
-                        <div className="portal-info">
-                            <h3 className="portal-title">{t('guardianPortal')}</h3>
-                            <p className="portal-desc">{t('guardianPortalDesc')}</p>
-                        </div>
-                    </motion.div>
-
-                    {/* Empowerment Hub */}
-                    <motion.div
-                        className="portal-card"
-                        onClick={() => navigate('/dashboard/empowerment')}
-                        variants={itemVariants}
-                    >
-                        <div className="portal-image-container">
-                            <img
-                                src="https://media.istockphoto.com/id/1496112689/photo/young-multiracial-group-stacking-hands-together-happy-diverse-friends-united-at-community.jpg?s=612x612&w=0&k=20&c=ARk3sEhEElK3M27oN-VcVNtAEULHJzZetRihjLsXuu8="
-                                alt="Empowerment Hub"
-                                className="portal-image"
-                            />
-                        </div>
-                        <div className="portal-info">
-                            <h3 className="portal-title">{t('empowermentPortal')}</h3>
-                            <p className="portal-desc">{t('empowermentPortalDesc')}</p>
-                        </div>
-                    </motion.div>
-
-                    {/* Profile */}
-                    <motion.div
-                        className="portal-card"
-                        onClick={() => navigate('/dashboard/profile')}
-                        variants={itemVariants}
-                    >
-                        <div className="portal-image-container">
-                            <img
-                                src="https://img.freepik.com/free-vector/woman-with-long-brown-hair-pink-shirt_90220-2940.jpg?semt=ais_wordcount_boost&w=740&q=80"
-                                alt="Profile"
-                                className="portal-image"
-                            />
-                        </div>
-                        <div className="portal-info">
-                            <h3 className="portal-title">{t('profilePortal')}</h3>
-                            <p className="portal-desc">{t('profilePortalDesc')}</p>
-                        </div>
-                    </motion.div>
-
-                    {/* Safe Journey */}
-                    <motion.div
-                        className="portal-card"
-                        onClick={() => navigate('/dashboard/user')}
-                        variants={itemVariants}
-                        style={{ border: '2px solid var(--primary)' }}
-                    >
-                        <div className="portal-image-container">
-                            <img
-                                src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=2021&auto=format&fit=crop"
-                                alt="Safe Journey"
-                                className="portal-image"
-                            />
-                        </div>
-                        <div className="portal-info">
-                            <h3 className="portal-title" style={{ color: 'var(--primary)', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                                <Globe size={20} /> Safe Journey
-                            </h3>
-                            <p className="portal-desc">
-                                Real-time location tracking with Guardian Alerts. Start your journey now.
+                        <div style={{ flex: 1, padding: '20px' }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
+                                <div style={{ background: '#ec4899', padding: '12px', borderRadius: '12px' }}><Shield size={24} color="white" /></div>
+                                <h3 style={{ fontSize: '1.8rem', margin: 0, fontWeight: '700', color: '#831843' }}>Safe Journey Active Mode</h3>
+                            </div>
+                            <p style={{ fontSize: '1.1rem', opacity: 0.9, lineHeight: '1.6', color: '#831843' }}>
+                                Activate real-time tracking with our new darker, radar-enabled dashboard.
+                                Designed for low-light environments and high-focus safety.
                             </p>
                         </div>
+                        <div style={{ width: '200px', height: '150px', borderRadius: '16px', overflow: 'hidden', display: 'none', '@media (min-width: 768px)': { display: 'block' } }}>
+                            <img src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=2021&auto=format&fit=crop" style={{ width: '100%', height: '100%', objectFit: 'cover' }} alt="Safe Journey" />
+                        </div>
                     </motion.div>
-                </div>
-
+                </motion.div>
             </motion.div>
         </div>
     );
 };
+
+const FeatureCard = ({ title, desc, icon, img, onClick }) => (
+    <motion.div
+        className="glass-card"
+        variants={{ hidden: { y: 30, opacity: 0 }, visible: { y: 0, opacity: 1 } }}
+        whileHover={{ y: -10, boxShadow: '0 20px 40px rgba(236, 72, 153, 0.25)' }}
+        onClick={onClick}
+        style={{
+            borderRadius: '24px',
+            overflow: 'hidden',
+            cursor: 'pointer',
+            display: 'flex',
+            flexDirection: 'column',
+            height: '100%'
+        }}
+    >
+        <div style={{ height: '220px', overflow: 'hidden', position: 'relative' }}>
+            <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, background: 'linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.4) 100%)', zIndex: 1 }} />
+            <img src={img} alt={title} style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.5s' }} />
+            <div style={{ position: 'absolute', bottom: '20px', left: '20px', zIndex: 2, display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <div style={{ background: 'rgba(255,255,255,0.9)', padding: '10px', borderRadius: '12px', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}>
+                    {icon}
+                </div>
+            </div>
+        </div>
+        <div style={{ padding: '24px' }}>
+            <h3 style={{ margin: '0 0 12px', fontSize: '1.4rem', fontWeight: '700', color: '#831843' }}>{title}</h3>
+            <p style={{ margin: 0, fontSize: '1rem', lineHeight: '1.6', color: '#4b5563' }}>{desc}</p>
+        </div>
+    </motion.div>
+);
 
 export default LandingPage;
