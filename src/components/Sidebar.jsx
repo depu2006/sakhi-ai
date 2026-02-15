@@ -16,7 +16,7 @@ const Sidebar = ({ onLinkClick }) => {
     };
 
     return (
-        <aside className="sidebar">
+        <aside className="sidebar-inner">
             <div className="logo-container">
                 <div className="logo-icon">S</div>
                 <span className="logo-text">SakhiAI</span>
@@ -24,7 +24,7 @@ const Sidebar = ({ onLinkClick }) => {
 
             <nav style={{ flex: 1 }}>
                 <ul className="nav-list">
-                    
+
                     <li className="nav-item">
                         <Link to="/dashboard/empowerment" className={isActive('/dashboard/empowerment') ? 'active' : ''} onClick={handleLinkClick}>
                             <Zap size={20} />

@@ -348,6 +348,14 @@ body {
   max-height: 100vh;
 }
 
+.sidebar-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  height: 100%;
+  width: 100%;
+}
+
 .logo-container {
   display: flex;
   align-items: center;
@@ -486,6 +494,7 @@ body {
 /* ========================================= */
 
 @media (max-width: 768px) {
+
   /* Show hamburger menu */
   .hamburger-btn {
     display: block;
@@ -596,6 +605,7 @@ body {
 /* ========================================= */
 
 @media (max-width: 480px) {
+
   /* Very small screens */
   body {
     font-size: 14px;

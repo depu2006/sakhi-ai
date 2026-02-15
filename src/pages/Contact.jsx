@@ -184,7 +184,16 @@ const Contact = () => {
                                 resize: 'vertical',
                                 minHeight: isMobile ? '140px' : '120px',
                                 transition: 'all 0.3s ease',
-                                boxShadow: '0 2px 4px rgba(0,0,0,0.03)'
+                                boxShadow: '0 2px 4px rgba(0,0,0,0.03)',
+                                lineHeight: '1.5'
+                            }}
+                            onFocus={(e) => {
+                                e.target.style.borderColor = 'var(--secondary)';
+                                e.target.style.boxShadow = '0 0 0 3px rgba(236, 72, 153, 0.1)';
+                            }}
+                            onBlur={(e) => {
+                                e.target.style.borderColor = 'var(--border-color)';
+                                e.target.style.boxShadow = '0 2px 4px rgba(0,0,0,0.03)';
                             }}
                         />
                         <button
