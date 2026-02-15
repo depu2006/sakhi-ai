@@ -1,0 +1,260 @@
+export const translations = {
+    en: {
+        // Landing Page
+        heroSubtitle: "Empowering Safety through Technology",
+        userPortal: "User Portal",
+        userPortalDesc: "Access safety tools, SOS alerts, and community support.",
+        guardianPortal: "Guardian Portal",
+        guardianPortalDesc: "Monitor loved ones, receive real-time alerts, and track location.",
+        empowermentPortal: "Empowerment Hub",
+        empowermentPortalDesc: "Business tools, skill detection, and financial calculators for growth.",
+        profilePortal: "My Profile",
+        profilePortalDesc: "Manage your account, emergency contacts, and app settings.",
+
+
+        // Sidebar
+        dashboard: "Dashboard",
+        safety: "Safety",
+        empowerment: "Empowerment",
+        guardian: "Guardian",
+        profile: "Profile",
+        exit: "Exit",
+
+        // User Dashboard (Safety)
+        welcome: "Welcome back, Priya",
+        safetyOverview: "Here is your safety overview for today.",
+        emergency: "EMERGENCY",
+        safe: "SAFE",
+        sosTrigger: "TRIGGER SOS",
+        sosAlert: "SOS Alert",
+        riskLevel: "Risk Level",
+        riskLow: "Low Risk",
+        riskHigh: "High Risk",
+        quickActions: "Quick Actions",
+        companion: "Companion",
+        safeRoute: "Safe Route",
+        arrivalTimer: "Arrival Timer",
+        voiceCheck: "Voice Check",
+        emergencyAssistance: "Emergency Assistance",
+        emergencyDesc: "Instantly alert your guardians and nearby authorities. Use only in case of emergency.",
+
+        // Empowerment
+        empowerTitle: "Empowerment Hub",
+        voiceAssistant: "AI Voice Assistant",
+        askAnything: "Ask anything about your business",
+        typeQuestion: "Or type your question...",
+        skillDetection: "Skill Detection",
+        tellUsSkill: "Tell us what you know",
+        detect: "Detect",
+        calculator: "Cost & Profit Calculator",
+        knowMargins: "Know your margins",
+        material: "Material Cost (₹)",
+        labor: "Labor Cost (₹)",
+        other: "Other Costs (₹)",
+        sellingPrice: "Selling Price (₹)",
+        calculate: "Calculate Profit",
+        profit: "Profit",
+        incomeOverview: "Income Overview",
+        revenue: "Revenue",
+        products: "Products Sold",
+
+        // Profile
+        profileTitle: "My Profile",
+        emergencyContacts: "Emergency Contacts",
+        addContact: "Add Contact",
+        settings: "Settings",
+        pushNotif: "Push Notifications",
+        language: "Language",
+        darkMode: "Dark Mode",
+        logout: "Logout",
+        save: "Save",
+
+        // Guardian Dashboard
+        guardianMain: "Guardian Monitor",
+        tracking: "Tracking Active Ward",
+        liveMap: "Live Map Integration",
+        recentAlerts: "Recent Alerts",
+        arrived: "Arrived at College",
+        sosTest: "SOS Test Triggered",
+
+        // Voice & About
+        startRecording: "Start Recording",
+        listening: "Listening...",
+        recordingComplete: "Recording Complete",
+        sendAlert: "Send Alert",
+        aboutSakhi: "About SakhiAI",
+        aboutDesc: "SakhiAI is your dedicated safety companion, empowering women with real-time protection, community connection, and financial tools."
+    },
+    hi: {
+        // Landing Page
+        heroSubtitle: "प्रौद्योगिकी के माध्यम से सुरक्षा को सशक्त बनाना",
+        userPortal: "उपयोगकर्ता पोर्टल",
+        userPortalDesc: "सुरक्षा उपकरण, SOS अलर्ट और सामुदायिक सहायता तक पहुँचें।",
+        guardianPortal: "अभिभावक पोर्टल",
+        guardianPortalDesc: "प्रियजनों की निगरानी करें, रीयल-टाइम अलर्ट प्राप्त करें और स्थान ट्रैक करें।",
+        empowermentPortal: "सशक्तिकरण केंद्र",
+        empowermentPortalDesc: "विकास के लिए व्यावसायिक उपकरण, कौशल पहचान और वित्तीय कैलकुलेटर।",
+        profilePortal: "मेरी प्रोफाइल",
+        profilePortalDesc: "अपना खाता, आपातकालीन संपर्क और ऐप सेटिंग्स प्रबंधित करें।",
+
+
+        // Sidebar
+        dashboard: "डैशबोर्ड",
+        safety: "सुरक्षा",
+        empowerment: "सशक्तिकरण",
+        guardian: "अभिभावक",
+        profile: "प्रोफाइल",
+        exit: "बाहर निकलें",
+
+        // User Dashboard (Safety)
+        welcome: "स्वागत है, प्रिया",
+        safetyOverview: "आज का सुरक्षा अवलोकन यहाँ है।",
+        emergency: "आपातकाल",
+        safe: "सुरक्षित",
+        sosTrigger: "SOS भेजें",
+        sosAlert: "SOS चेतावनी",
+        riskLevel: "जोखिम स्तर",
+        riskLow: "कम जोखिम",
+        riskHigh: "उच्च जोखिम",
+        quickActions: "त्वरित कार्रवाई",
+        companion: "साथी",
+        safeRoute: "सुरक्षित रास्ता",
+        arrivalTimer: "आगमन टाइमर",
+        voiceCheck: "वॉयस चेक",
+        emergencyAssistance: "आपातकालीन सहायता",
+        emergencyDesc: "तुरंत अपने अभिभावकों और नजदीकी अधिकारियों को सतर्क करें। केवल आपात स्थिति में उपयोग करें।",
+
+        // Empowerment
+        empowerTitle: "सशक्तिकरण केंद्र",
+        voiceAssistant: "AI वॉयस असिस्टेंट",
+        askAnything: "अपने व्यापार के बारे में कुछ भी पूछें",
+        typeQuestion: "या अपना प्रश्न टाइप करें...",
+        skillDetection: "कौशल पहचान",
+        tellUsSkill: "हमें अपना कौशल बताएं",
+        detect: "पता करें",
+        calculator: "लागत और लाभ कैलकुलेटर",
+        knowMargins: "अपना मुनाफा जानें",
+        material: "सामग्री लागत (₹)",
+        labor: "श्रम लागत (₹)",
+        other: "अन्य लागत (₹)",
+        sellingPrice: "विक्रय मूल्य (₹)",
+        calculate: "लाभ की गणना करें",
+        profit: "लाभ",
+        incomeOverview: "आय अवलोकन",
+        revenue: "राजस्व",
+        products: "बेचे गए उत्पाद",
+
+        // Profile
+        profileTitle: "मेरी प्रोफाइल",
+        emergencyContacts: "आपातकालीन संपर्क",
+        addContact: "संपर्क जोड़ें",
+        settings: "सेटिंग्स",
+        pushNotif: "पुश नोटिफिकेशन",
+        language: "भाषा",
+        darkMode: "डार्क मोड",
+        logout: "लॉग आउट",
+        save: "सहेजें",
+
+        // Guardian Dashboard
+        guardianMain: "अभिभावक मॉनिटर",
+        tracking: "सक्रिय वार्ड ट्रैक हो रहा है",
+        liveMap: "लाइव मैप एकीकरण",
+        recentAlerts: "हालिया अलर्ट",
+        arrived: "कॉलेज पहुंचे",
+        sosTest: "SOS टेस्ट ट्रिगर किया गया",
+
+        // Voice & About
+        startRecording: "रिकॉर्डिंग शुरू करें",
+        listening: "सुन रहा हूँ...",
+        recordingComplete: "रिकॉर्डिंग पूरी हुई",
+        sendAlert: "अलर्ट भेजें",
+        aboutSakhi: "सखी एआई के बारे में",
+        aboutDesc: "सखी एआई आपका समर्पित सुरक्षा साथी है, जो महिलाओं को वास्तविक समय की सुरक्षा, सामुदायिक जुड़ाव और वित्तीय साधनों के साथ सशक्त बनाता है।"
+    }
+    ,
+    te: {
+        // Landing Page
+        heroSubtitle: "సాంకేతికత ద్వారా భద్రతకు శక్తి",
+        userPortal: "వాడుకరి పోర్టల్",
+        userPortalDesc: "భద్రతా టూల్స్, SOS అలర్ట్స్ మరియు కమ్యూనిటీ మద్దతును పొందండి.",
+        guardianPortal: "గార్డియన్ పోర్టల్",
+        guardianPortalDesc: "నియమితంగా వారి స్థానాన్ని ట్రాక్ చేయండి మరియు రియల్ టైమ్ అలర్ట్స్ పొందండి.",
+        empowermentPortal: "సామర్థ్య కేంద్రం",
+        empowermentPortalDesc: "వృద్ధి కోసం బిజినెస్ టూల్స్, నైపుణ్య గుర్తింపు మరియు ఆర్థిక కాల్యుకేటర్లు.",
+        profilePortal: "నా ప్రొఫైల్",
+        profilePortalDesc: "మీ ఖాతా, అత్యవసర సంప్రదింపులు మరియు యాప్ సెట్టింగ్స్ నిర్వహించండి.",
+
+        // Sidebar
+        dashboard: "డ్యాష్‌బోర్డ్",
+        safety: "భద్రత",
+        empowerment: "సామర్థ్యం",
+        guardian: "గార్డియన్",
+        profile: "ప్రొఫైల్",
+        exit: "నిష్క్రమించండి",
+
+        // User Dashboard (Safety)
+        welcome: "స్వాగతం, ప్రియా",
+        safetyOverview: "ఈ రోజు మీ భద్రతా అవలోకనం ఇక్కడ ఉంది.",
+        emergency: "ఆపద",
+        safe: "సురక్షితం",
+        sosTrigger: "SOS పంపు",
+        sosAlert: "SOS అలర్ట్",
+        riskLevel: "పరిస్థితి స్థాయి",
+        riskLow: "తక్కువ రిస్క్",
+        riskHigh: "ఎక్కువ రిస్క్",
+        quickActions: "త్వరిత చర్యలు",
+        companion: "సహచరుడు",
+        safeRoute: "సురక్షిత మార్గం",
+        arrivalTimer: "వేలిమి టైమర్",
+        voiceCheck: "వాయిస్ చెక్",
+        emergencyAssistance: "అత్యవసర సహాయం",
+        emergencyDesc: "తక్షణమే మీ గార్డియన్లకు మరియు సమీప అధికారులకు అలర్ట్ పంపండి. కేవలం అత్యవసరమైతే ఉపయోగించండి.",
+
+        // Empowerment
+        empowerTitle: "సామర్థ్య కేంద్రం",
+        voiceAssistant: "AI వాయిస్ అసిస్టెంట్",
+        askAnything: "మీ వ్యాపారం గురించి ఏదైనది అడుగండి",
+        typeQuestion: "లేదా మీ ప్రశ్న టైప్ చేయండి...",
+        skillDetection: "నైపుణ్య గుర్తింపు",
+        tellUsSkill: "మీ నైపుణ్యాన్ని చెప్పండి",
+        detect: "గుర్తించు",
+        calculator: "ఖర్చు & లాభ కాల్యుకేటర్",
+        knowMargins: "మీ మార్జిన్స్ తెలుసుకోండి",
+        material: "సామగ్రి ఖర్చు (₹)",
+        labor: "శ్రమ ఖర్చు (₹)",
+        other: "ఇతర ఖర్చులు (₹)",
+        sellingPrice: "అమ్మకపు ధర (₹)",
+        calculate: "లాభం లెక్కించు",
+        profit: "లాభం",
+        incomeOverview: "ఆదాయ అవలోకనం",
+        revenue: "ఆదాయం",
+        products: "అమ్మిన ఉత్పత్తులు",
+
+        // Profile
+        profileTitle: "నా ప్రొఫైల్",
+        emergencyContacts: "అత్యవసర సంప్రదింపులు",
+        addContact: "సంప్రదింపును జోడించు",
+        settings: "సెట్టింగ్స్",
+        pushNotif: "పుష్ నోటిఫికేషన్స్",
+        language: "భాష",
+        darkMode: "డార్క్ మోడ్",
+        logout: "లాగ్అవుట్",
+        save: "సేవ్",
+
+        // Guardian Dashboard
+        guardianMain: "గార్డియన్ మానిటర్",
+        tracking: "వార్డు ట్రాకింగ్ యాక్టివ్",
+        liveMap: "లైవ్ మ్యాప్ ఇంటిగ్రేషన్",
+        recentAlerts: "ఇటీవల అలర్ట్స్",
+        arrived: "కాలేజీకి చేరారు",
+        sosTest: "SOS టెస్ట్ ట్రిగర్ చేయబడింది",
+
+        // Voice & About
+        startRecording: "రికార్డింగ్ మొదలు పెట్టు",
+        listening: "కోస్తున్నది...",
+        recordingComplete: "రికార్డింగ్ పూర్తి",
+        sendAlert: "అలర్ట్ పంపు",
+        aboutSakhi: "సఖి ఏఐ గురించి",
+        aboutDesc: "సఖి ఏఐ మీ నమ్మకమైన భద్రతా తోడొస్తుంది, మహిళలకు రియల్-టైమ్ రక్షణ, కమ్యూనిటీ కనెక్షన్ మరియు ఆర్థిక సాధనాలను అందిస్తుంది."
+    }
+};
