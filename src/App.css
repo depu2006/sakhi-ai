@@ -446,3 +446,314 @@ body {
 .sidebar::-webkit-scrollbar-thumb:hover {
   background: rgba(0, 0, 0, 0.2);
 }
+
+/* ========================================= */
+/*       HAMBURGER MENU & MOBILE TOGGLE      */
+/* ========================================= */
+
+.hamburger-btn {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--text-main);
+  padding: 8px 12px;
+  z-index: 201;
+}
+
+.hamburger-btn.active {
+  color: var(--primary);
+}
+
+.sidebar-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 99;
+}
+
+.sidebar-overlay.active {
+  display: block;
+}
+
+/* ========================================= */
+/*       RESPONSIVE DESIGN - TABLET (≤768px) */
+/* ========================================= */
+
+@media (max-width: 768px) {
+  /* Show hamburger menu */
+  .hamburger-btn {
+    display: block;
+  }
+
+  /* Header responsive */
+  .dashboard-container header {
+    padding: 12px 16px !important;
+    gap: 1rem;
+  }
+
+  /* Sidebar: hide by default, show on menu toggle */
+  .sidebar {
+    position: fixed;
+    left: 0;
+    top: 52px;
+    width: 240px;
+    height: calc(100vh - 52px);
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    z-index: 100;
+    border-right: 1px solid var(--border-color);
+  }
+
+  .sidebar.active {
+    transform: translateX(0);
+  }
+
+  /* Dashboard layout: full width, sidebar overlays on mobile */
+  .dashboard-layout {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  /* Dashboard content: full width */
+  .dashboard-content {
+    flex: 1;
+    padding: 24px 16px;
+    width: 100%;
+  }
+
+  /* Landing Page: stack vertically */
+  .landing-nav {
+    padding: 1rem 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .landing-logo {
+    font-size: 1.4rem;
+  }
+
+  .landing-menu {
+    gap: 1rem;
+    font-size: 0.9rem;
+  }
+
+  .landing-content {
+    padding: 2rem 1rem;
+  }
+
+  .hero-main-title {
+    font-size: 2.2rem;
+  }
+
+  .hero-sub-text {
+    font-size: 1rem;
+  }
+
+  .hero-image-section {
+    height: 300px;
+    margin-bottom: 2rem;
+  }
+
+  /* Portal grid: 2 columns on tablet */
+  .portal-grid {
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+  }
+
+  .portal-title {
+    font-size: 1.2rem;
+  }
+
+  .portal-desc {
+    font-size: 0.9rem;
+  }
+
+  /* Dashboard grid: adjust for tablet */
+  .dashboard-grid {
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+
+  /* Service cards: better spacing on tablet */
+  .service-card {
+    padding: 1.5rem;
+  }
+
+  /* Quick action cards: responsive */
+  .quick-action-card {
+    padding: 1.5rem;
+  }
+}
+
+/* ========================================= */
+/*       RESPONSIVE DESIGN - MOBILE (≤480px) */
+/* ========================================= */
+
+@media (max-width: 480px) {
+  /* Very small screens */
+  body {
+    font-size: 14px;
+  }
+
+  .dashboard-container header {
+    padding: 10px 12px !important;
+  }
+
+  .hamburger-btn {
+    padding: 6px 8px;
+    font-size: 1.3rem;
+  }
+
+  /* Sidebar: narrower on small mobile */
+  .sidebar {
+    width: 200px;
+    padding: 1.5rem 0;
+  }
+
+  .logo-container {
+    padding: 0 1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .logo-text {
+    font-size: 1.1rem;
+  }
+
+  .nav-item a {
+    padding: 10px 12px;
+    font-size: 0.9rem;
+  }
+
+  .nav-item a.active {
+    padding-left: 9px;
+  }
+
+  /* Dashboard content: reduced padding */
+  .dashboard-content {
+    padding: 16px 12px;
+    flex: 1;
+    overflow-y: auto;
+    width: 100%;
+  }
+
+  /* Landing Page: even smaller on mobile */
+  .landing-nav {
+    padding: 0.875rem 1rem;
+    flex-direction: row;
+    gap: 1rem;
+  }
+
+  .landing-logo {
+    font-size: 1.2rem;
+    min-width: fit-content;
+  }
+
+  .landing-menu {
+    gap: 0.75rem;
+    font-size: 0.8rem;
+  }
+
+  .landing-menu a {
+    font-size: 0.75rem;
+  }
+
+  .landing-content {
+    padding: 1.5rem 1rem;
+    text-align: center;
+  }
+
+  .hero-main-title {
+    font-size: 1.8rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .hero-sub-text {
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-image-section {
+    height: 250px;
+    margin-bottom: 1.5rem;
+  }
+
+  /* Portal grid: 1 column on mobile */
+  .portal-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .portal-image-container {
+    height: 180px;
+  }
+
+  .portal-title {
+    font-size: 1.1rem;
+  }
+
+  .portal-desc {
+    font-size: 0.85rem;
+  }
+
+  /* Dashboard grid: single column */
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  /* Buttons: full width or adjusted */
+  .btn-primary {
+    padding: 10px 16px;
+    font-size: 0.9rem;
+  }
+
+  /* Service cards: full width, single column */
+  .service-card {
+    padding: 1.25rem;
+    margin-bottom: 1rem;
+  }
+
+  .service-info {
+    margin-top: 1rem;
+  }
+
+  /* Quick action cards */
+  .quick-action-card {
+    padding: 1.25rem;
+  }
+
+  /* Contact cards: single column */
+  .contact-card {
+    margin-bottom: 1rem;
+  }
+
+  /* Empowerment sections: stack vertically */
+  .empowerment-section {
+    margin-bottom: 1.5rem;
+  }
+
+  /* Remove gridColumn spans for mobile */
+  .empowerment-section.full-width {
+    grid-column: 1;
+  }
+
+  /* Profile page: responsive */
+  .profile-header {
+    padding: 1.5rem 1rem;
+  }
+
+  .profile-main {
+    padding: 0;
+  }
+
+  .profile-grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -3,11 +3,17 @@ import { Link, useLocation } from 'react-router-dom';
 import { Shield, Eye, Home, LogOut, Zap, User } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 
-const Sidebar = () => {
+const Sidebar = ({ onLinkClick }) => {
     const location = useLocation();
     const { t } = useLanguage();
 
     const isActive = (path) => location.pathname === path;
+
+    const handleLinkClick = () => {
+        if (onLinkClick) {
+            onLinkClick();
+        }
+    };
 
     return (
         <aside className="sidebar">
@@ -20,19 +26,19 @@ const Sidebar = () => {
                 <ul className="nav-list">
                     
                     <li className="nav-item">
-                        <Link to="/dashboard/empowerment" className={isActive('/dashboard/empowerment') ? 'active' : ''}>
+                        <Link to="/dashboard/empowerment" className={isActive('/dashboard/empowerment') ? 'active' : ''} onClick={handleLinkClick}>
                             <Zap size={20} />
                             <span>{t('empowerment')}</span>
                         </Link>
                     </li>
                     <li className="nav-item">
-                        <Link to="/dashboard/guardian" className={isActive('/dashboard/guardian') ? 'active' : ''}>
+                        <Link to="/dashboard/guardian" className={isActive('/dashboard/guardian') ? 'active' : ''} onClick={handleLinkClick}>
                             <Eye size={20} />
                             <span>{t('guardian')}</span>
                         </Link>
                     </li>
                     <li className="nav-item">
-                        <Link to="/dashboard/profile" className={isActive('/dashboard/profile') ? 'active' : ''}>
+                        <Link to="/dashboard/profile" className={isActive('/dashboard/profile') ? 'active' : ''} onClick={handleLinkClick}>
                             <User size={20} />
                             <span>{t('profile')}</span>
                         </Link>
@@ -43,7 +49,7 @@ const Sidebar = () => {
             <div style={{ borderTop: '1px solid var(--glass-border)', paddingTop: '20px' }}>
                 <ul className="nav-list">
                     <li className="nav-item">
-                        <Link to="/">
+                        <Link to="/" onClick={handleLinkClick}>
                             <LogOut size={20} />
                             <span>{t('exit')}</span>
                         </Link>

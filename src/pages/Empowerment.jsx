@@ -97,7 +97,7 @@ const Empowerment = () => {
                 </motion.div>
 
                 {/* Calculator */}
-                <motion.div className="glass-panel" variants={itemVariants} style={{ padding: '30px', gridRow: 'span 2' }}>
+                <motion.div className="glass-panel" variants={itemVariants} style={{ padding: '30px' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '24px' }}>
                         <div style={{ background: 'rgba(16, 185, 129, 0.1)', padding: '12px', borderRadius: '12px' }}><Calculator size={24} color="var(--success)" /></div>
                         <h3 style={{ fontSize: '1.25rem', color: 'var(--text-main)', margin: 0 }}>{t('calculator')}</h3>
@@ -124,8 +124,8 @@ const Empowerment = () => {
                         <div style={{ background: 'rgba(245, 158, 11, 0.1)', padding: '12px', borderRadius: '12px' }}><TrendingUp size={24} color="var(--warning)" /></div>
                         <h3 style={{ fontSize: '1.25rem', color: 'var(--text-main)', margin: 0 }}>{t('incomeOverview')}</h3>
                     </div>
-                    <div style={{ display: 'flex', gap: '24px' }}>
-                        <div style={{ flex: 1, padding: '20px', borderRadius: '12px', background: '#F8F9FA', border: '1px solid var(--border-color)' }}>
+                    <div style={{ display: 'flex', gap: '24px', flexWrap: 'wrap' }}>
+                        <div style={{ flex: 1, minWidth: '150px', padding: '20px', borderRadius: '12px', background: '#F8F9FA', border: '1px solid var(--border-color)' }}>
                             <span style={{ color: 'var(--text-muted)', fontSize: '0.9rem', display: 'block', marginBottom: '4px' }}>{t('products')}</span>
                             <div style={{ fontSize: '2rem', fontWeight: 'bold', color: 'var(--text-main)' }}>{products.length}</div>
                         </div>
@@ -142,7 +142,7 @@ const Empowerment = () => {
 
                 {/* Sell Your Products Marketplace */}
                 <motion.div className="glass-panel" variants={itemVariants} style={{ padding: '30px', gridColumn: 'span 3', background: 'linear-gradient(135deg, #fff5f7 0%, #ffe6ed 100%)' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '24px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '24px', flexWrap: 'wrap', gap: '16px' }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
                             <div style={{ background: 'rgba(236, 72, 153, 0.15)', padding: '12px', borderRadius: '12px' }}><ShoppingCart size={28} color="var(--secondary)" /></div>
                             <h3 style={{ fontSize: '1.5rem', color: 'var(--text-main)', margin: 0 }}>Women's Marketplace</h3>
@@ -160,7 +160,8 @@ const Empowerment = () => {
                                 borderRadius: '8px',
                                 cursor: 'pointer',
                                 fontWeight: '600',
-                                boxShadow: '0 4px 12px rgba(236, 72, 153, 0.3)'
+                                boxShadow: '0 4px 12px rgba(236, 72, 153, 0.3)',
+                                whiteSpace: 'nowrap'
                             }}
                         >
                             <Plus size={20} /> Add My Product
@@ -176,7 +177,7 @@ const Empowerment = () => {
                         >
                             <h4 style={{ marginTop: 0, color: 'var(--text-main)' }}>Add Your Product to Marketplace</h4>
                             <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '16px' }}>Help rural women grow their business by listing products online</p>
-                            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '16px' }}>
+                            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '16px' }}>
                                 <input
                                     type="text"
                                     placeholder="Product Name (e.g., Saree, Honey, Pottery)"

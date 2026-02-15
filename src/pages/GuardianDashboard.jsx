@@ -28,7 +28,7 @@ const GuardianDashboard = () => {
             </header>
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '24px' }}>
-                <motion.div className="glass-panel" variants={itemVariants} style={{ height: '500px', position: 'relative', overflow: 'hidden', gridColumn: 'span 2', background: '#e2e8f0' }}>
+                <motion.div className="glass-panel" variants={itemVariants} style={{ height: window.innerWidth < 768 ? '300px' : '500px', position: 'relative', overflow: 'hidden', gridColumn: window.innerWidth < 768 ? '1' : 'span 2', background: '#e2e8f0' }}>
                     {/* Mock Map Interface */}
                     <div style={{ width: '100%', height: '100%', background: '#f1f5f9', position: 'relative' }}>
                         {/* Map Grid Pattern */}

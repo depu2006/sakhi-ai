@@ -31,6 +31,18 @@ const Chatbot = () => {
         }, 1000);
     };
 
+    // Responsive dimensions
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 480;
+    const isTablet = typeof window !== 'undefined' && window.innerWidth < 768;
+    
+    const chatbotWidth = isMobile ? 'calc(100vw - 20px)' : isTablet ? '90vw' : '350px';
+    const chatbotHeight = isMobile ? '60vh' : '500px';
+    const chatbotBottom = isMobile ? '70px' : '100px';
+    const chatbotRight = isMobile ? '10px' : '30px';
+    const buttonBottom = isMobile ? '20px' : '30px';
+    const buttonRight = isMobile ? '20px' : '30px';
+    const buttonSize = isMobile ? '50px' : '60px';
+
     return (
         <>
             {/* Floating Action Button */}
@@ -41,10 +53,10 @@ const Chatbot = () => {
                 whileTap={{ scale: 0.9 }}
                 style={{
                     position: 'fixed',
-                    bottom: '30px',
-                    right: '30px',
-                    width: '60px',
-                    height: '60px',
+                    bottom: buttonBottom,
+                    right: buttonRight,
+                    width: buttonSize,
+                    height: buttonSize,
                     borderRadius: '50%',
                     display: 'flex',
                     alignItems: 'center',
@@ -53,7 +65,7 @@ const Chatbot = () => {
                     boxShadow: '0 4px 20px rgba(99, 102, 241, 0.4)'
                 }}
             >
-                <MessageSquare size={28} />
+                <MessageSquare size={isMobile ? 24 : 28} />
             </motion.button>
 
             {/* Chat Window */}
@@ -66,30 +78,33 @@ const Chatbot = () => {
                         className="glass-panel"
                         style={{
                             position: 'fixed',
-                            bottom: '100px',
-                            right: '30px',
-                            width: '350px',
-                            height: '500px',
+                            bottom: chatbotBottom,
+                            right: chatbotRight,
+                            width: chatbotWidth,
+                            maxWidth: isMobile ? 'calc(100vw - 20px)' : '100%',
+                            height: chatbotHeight,
+                            maxHeight: isMobile ? '80vh' : '100%',
                             zIndex: 100,
                             display: 'flex',
                             flexDirection: 'column',
                             overflow: 'hidden',
-                            backgroundColor: 'var(--card-bg)', // Ensure background contrast
-                            backdropFilter: 'blur(20px)'
+                            backgroundColor: 'var(--card-bg)',
+                            backdropFilter: 'blur(20px)',
+                            borderRadius: isMobile ? '16px' : '12px'
                         }}
                     >
                         {/* Header */}
-                        <div style={{ padding: '16px', background: 'var(--primary)', color: 'white', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                            <span style={{ fontWeight: '600', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                                <Bot size={20} /> Personal Assistant
+                        <div style={{ padding: isMobile ? '12px' : '16px', background: 'var(--primary)', color: 'white', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                            <span style={{ fontWeight: '600', display: 'flex', alignItems: 'center', gap: '8px', fontSize: isMobile ? '0.95rem' : '1rem' }}>
+                                <Bot size={isMobile ? 18 : 20} /> Personal Assistant
                             </span>
                             <button onClick={() => setIsOpen(false)} style={{ background: 'none', border: 'none', color: 'white', cursor: 'pointer' }}>
-                                <X size={20} />
+                                <X size={isMobile ? 18 : 20} />
                             </button>
                         </div>
 
                         {/* Messages Area */}
-                        <div style={{ flex: 1, padding: '16px', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                        <div style={{ flex: 1, padding: isMobile ? '12px' : '16px', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '12px' }}>
                             {messages.map(msg => (
                                 <div
                                     key={msg.id}
@@ -97,9 +112,11 @@ const Chatbot = () => {
                                         alignSelf: msg.sender === 'user' ? 'flex-end' : 'flex-start',
                                         background: msg.sender === 'user' ? 'var(--primary)' : 'rgba(255,255,255,0.1)',
                                         color: msg.sender === 'user' ? 'white' : 'var(--text-main)',
-                                        padding: '10px 14px',
+                                        padding: isMobile ? '8px 12px' : '10px 14px',
                                         borderRadius: '12px',
-                                        maxWidth: '80%',
+                                        maxWidth: '85%',
+                                        fontSize: isMobile ? '0.9rem' : '0.95rem',
+                                        wordWrap: 'break-word',
                                         border: msg.sender === 'bot' ? '1px solid var(--glass-border)' : 'none'
                                     }}
                                 >
@@ -109,7 +126,7 @@ const Chatbot = () => {
                         </div>
 
                         {/* Input Area */}
-                        <div style={{ padding: '16px', borderTop: '1px solid var(--glass-border)', display: 'flex', gap: '8px' }}>
+                        <div style={{ padding: isMobile ? '12px' : '16px', borderTop: '1px solid var(--glass-border)', display: 'flex', gap: '8px' }}>
                             <input
                                 type="text"
                                 value={input}
@@ -118,20 +135,21 @@ const Chatbot = () => {
                                 placeholder="Type a message..."
                                 style={{
                                     flex: 1,
-                                    padding: '10px',
+                                    padding: isMobile ? '8px 10px' : '10px',
                                     borderRadius: '8px',
                                     border: '1px solid var(--glass-border)',
                                     background: 'rgba(255,255,255,0.05)',
                                     color: 'var(--text-main)',
-                                    outline: 'none'
+                                    outline: 'none',
+                                    fontSize: isMobile ? '0.9rem' : '0.95rem'
                                 }}
                             />
                             <button
                                 onClick={handleSend}
                                 className="btn-primary"
-                                style={{ padding: '10px', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                                style={{ padding: isMobile ? '8px 10px' : '10px', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
                             >
-                                <Send size={18} />
+                                <Send size={isMobile ? 16 : 18} />
                             </button>
                         </div>
                     </motion.div>
