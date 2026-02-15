@@ -42,36 +42,80 @@ const LandingPage = () => {
                         backdrop-filter: blur(10px);
                         border-bottom: 1px solid rgba(255, 255, 255, 0.5);
                     }
+                    /* Responsive Grid */
+                    .features-grid {
+                        display: grid;
+                        grid-template-columns: 1fr;
+                        gap: 20px;
+                        max-width: 1000px;
+                        margin: 0 auto 100px;
+                        padding: 0 20px;
+                    }
+                    @media (min-width: 768px) {
+                        .features-grid {
+                            grid-template-columns: repeat(2, 1fr);
+                            gap: 40px;
+                            padding: 0 40px;
+                        }
+                    }
+                    /* Responsive Typography */
+                    .hero-title {
+                        font-size: 2.5rem;
+                        font-weight: 800;
+                        margin: 0 0 24px;
+                        line-height: 1.1;
+                        color: #0f172a;
+                    }
+                    @media (min-width: 768px) {
+                        .hero-title {
+                            font-size: 4.5rem;
+                        }
+                    }
+                    /* Responsive Nav */
+                    .nav-links {
+                        display: none;
+                    }
+                    @media (min-width: 768px) {
+                        .nav-links {
+                            display: flex;
+                            gap: 32px;
+                            align-items: center;
+                        }
+                    }
                 `}
             </style>
 
             {/* Navbar */}
             <nav className="glass-nav" style={{
-                padding: '20px 40px',
+                padding: '15px 20px',
                 display: 'flex',
                 justifyContent: 'space-between',
                 alignItems: 'center',
                 position: 'fixed',
                 top: 0,
                 width: '100%',
-                zIndex: 1000
+                zIndex: 1000,
+                boxSizing: 'border-box'
             }}>
-                <div style={{ fontSize: '1.8rem', fontWeight: '800', letterSpacing: '-1px', display: 'flex', alignItems: 'center', gap: '8px', color: '#0f172a' }}>
-                    <Shield size={32} fill="#0f172a" /> Sakhi AI
+                <div style={{ fontSize: '1.5rem', fontWeight: '800', letterSpacing: '-1px', display: 'flex', alignItems: 'center', gap: '8px', color: '#0f172a' }}>
+                    <Shield size={28} fill="#0f172a" /> Sakhi AI
                 </div>
-                <div style={{ display: 'flex', gap: '32px', alignItems: 'center' }}>
-                    {['About', 'Services', 'Contact'].map((item) => (
-                        <a key={item} href={`/${item.toLowerCase()}`} onClick={(e) => { e.preventDefault(); navigate(`/${item.toLowerCase()}`); }}
-                            style={{ color: '#334155', textDecoration: 'none', fontWeight: '600', fontSize: '1rem', opacity: 0.9, transition: 'color 0.2s' }}
-                            onMouseOver={(e) => e.target.style.color = '#0ea5e9'}
-                            onMouseOut={(e) => e.target.style.color = '#334155'}
-                        >
-                            {item}
-                        </a>
-                    ))}
-                    <button onClick={toggleLanguage} style={{ background: 'rgba(0,0,0,0.05)', border: 'none', color: '#334155', padding: '8px 16px', borderRadius: '20px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px', fontWeight: '600' }}>
-                        <Globe size={16} /> {language.toUpperCase()}
-                    </button>
+                <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
+                    <div className="nav-links">
+                        {['About', 'Services', 'Contact'].map((item) => (
+                            <a key={item} href={`/${item.toLowerCase()}`} onClick={(e) => { e.preventDefault(); navigate(`/${item.toLowerCase()}`); }}
+                                style={{ color: '#334155', textDecoration: 'none', fontWeight: '600', fontSize: '1rem', opacity: 0.9, transition: 'color 0.2s' }}
+                                onMouseOver={(e) => e.target.style.color = '#0ea5e9'}
+                                onMouseOut={(e) => e.target.style.color = '#334155'}
+                            >
+                                {item}
+                            </a>
+                        ))}
+                        <button onClick={toggleLanguage} style={{ background: 'rgba(0,0,0,0.05)', border: 'none', color: '#334155', padding: '8px 16px', borderRadius: '20px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px', fontWeight: '600' }}>
+                            <Globe size={16} /> {language.toUpperCase()}
+                        </button>
+                    </div>
+
                     <motion.button
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
@@ -80,10 +124,11 @@ const LandingPage = () => {
                             background: '#0ea5e9', // Blue button to match theme
                             color: 'white',
                             border: 'none',
-                            padding: '10px 24px',
+                            padding: '8px 20px',
                             borderRadius: '30px',
                             fontWeight: '700',
                             cursor: 'pointer',
+                            fontSize: '0.9rem',
                             boxShadow: '0 4px 15px rgba(14, 165, 233, 0.3)'
                         }}
                     >
@@ -98,16 +143,16 @@ const LandingPage = () => {
                 initial="hidden"
                 animate="visible"
                 style={{
-                    padding: '160px 40px 60px',
+                    padding: '120px 20px 60px',
                     maxWidth: '1200px',
                     margin: '0 auto',
                     textAlign: 'center'
                 }}
             >
-                <motion.h1 variants={itemVariants} style={{ fontSize: '4.5rem', fontWeight: '800', margin: '0 0 24px', lineHeight: '1.1', color: '#0f172a' }}>
+                <motion.h1 variants={itemVariants} className="hero-title">
                     Safety Reimagined.<br />Freedom Unleashed.
                 </motion.h1>
-                <motion.p variants={itemVariants} style={{ fontSize: '1.4rem', maxWidth: '700px', margin: '0 auto 60px', opacity: 0.8, lineHeight: '1.6', color: '#334155' }}>
+                <motion.p variants={itemVariants} style={{ fontSize: '1.1rem', maxWidth: '700px', margin: '0 auto 40px', opacity: 0.8, lineHeight: '1.6', color: '#334155' }}>
                     {t('heroSubtitle') || "Your intelligent companion for safety, empowerment, and connection."}
                     Experience the future of personal security with Sakhi AI.
                 </motion.p>
@@ -117,8 +162,8 @@ const LandingPage = () => {
                         whileHover={{ y: -5 }}
                         onClick={() => navigate('/dashboard/user')}
                         style={{
-                            padding: '18px 40px',
-                            fontSize: '1.2rem',
+                            padding: '16px 32px',
+                            fontSize: '1.1rem',
                             borderRadius: '50px',
                             border: 'none',
                             background: '#ec4899', // Pink accent button
@@ -142,14 +187,7 @@ const LandingPage = () => {
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
-                style={{
-                    display: 'grid',
-                    gridTemplateColumns: 'repeat(2, 1fr)', // 2x2 Grid per request
-                    gap: '40px',
-                    maxWidth: '1000px',
-                    margin: '0 auto 100px',
-                    padding: '0 40px'
-                }}
+                className="features-grid"
             >
                 <FeatureCard
                     title={t('userPortal')}
