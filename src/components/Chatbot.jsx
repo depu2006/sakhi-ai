@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MessageSquare, X, Send, Bot } from 'lucide-react';
+import { MessageSquare, X, Send, Bot, Mic } from 'lucide-react';
 
 const Chatbot = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -34,7 +34,7 @@ const Chatbot = () => {
     // Responsive dimensions
     const isMobile = typeof window !== 'undefined' && window.innerWidth < 480;
     const isTablet = typeof window !== 'undefined' && window.innerWidth < 768;
-    
+
     const chatbotWidth = isMobile ? 'calc(100vw - 20px)' : isTablet ? '90vw' : '350px';
     const chatbotHeight = isMobile ? '60vh' : '500px';
     const chatbotBottom = isMobile ? '70px' : '100px';
@@ -126,7 +126,32 @@ const Chatbot = () => {
                         </div>
 
                         {/* Input Area */}
-                        <div style={{ padding: isMobile ? '12px' : '16px', borderTop: '1px solid var(--glass-border)', display: 'flex', gap: '8px' }}>
+                        <div style={{ padding: isMobile ? '12px' : '16px', borderTop: '1px solid var(--glass-border)', display: 'flex', gap: '8px', alignItems: 'center' }}>
+                            <button
+                                onClick={() => {
+                                    if ('webkitSpeechRecognition' in window) {
+                                        const recognition = new window.webkitSpeechRecognition();
+                                        recognition.onstart = () => setInput("Listening...");
+                                        recognition.onresult = (event) => {
+                                            const transcript = event.results[0][0].transcript;
+                                            setInput(transcript);
+                                        };
+                                        recognition.start();
+                                    } else {
+                                        alert("Voice input not supported in this browser.");
+                                    }
+                                }}
+                                style={{
+                                    padding: '10px',
+                                    borderRadius: '50%',
+                                    background: 'var(--secondary)',
+                                    border: 'none',
+                                    cursor: 'pointer',
+                                    display: 'flex', alignItems: 'center', justifyContent: 'center'
+                                }}
+                            >
+                                <Mic size={18} color="white" />
+                            </button>
                             <input
                                 type="text"
                                 value={input}

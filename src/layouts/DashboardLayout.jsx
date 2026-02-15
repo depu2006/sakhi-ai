@@ -3,6 +3,7 @@ import { Outlet, useNavigate } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 import Chatbot from '../components/Chatbot';
 import Sidebar from '../components/Sidebar';
+import JourneyTracker from '../components/JourneyTracker';
 
 const DashboardLayout = () => {
     const navigate = useNavigate();
@@ -19,7 +20,7 @@ const DashboardLayout = () => {
     return (
         <div className="dashboard-container">
             <header style={{ padding: '10px 18px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid var(--border-color)', background: 'var(--bg-color)' }}>
-                <button 
+                <button
                     className={`hamburger-btn ${sidebarOpen ? 'active' : ''}`}
                     onClick={toggleSidebar}
                     style={{ marginRight: '12px' }}
@@ -36,8 +37,8 @@ const DashboardLayout = () => {
 
             {/* Sidebar overlay for mobile */}
             {sidebarOpen && (
-                <div 
-                    className="sidebar-overlay active" 
+                <div
+                    className="sidebar-overlay active"
                     onClick={closeSidebar}
                 />
             )}
@@ -51,6 +52,7 @@ const DashboardLayout = () => {
                 </main>
             </div>
             <Chatbot />
+            <JourneyTracker />
         </div>
     );
 };

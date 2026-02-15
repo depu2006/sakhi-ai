@@ -155,7 +155,29 @@ const LandingPage = () => {
                         </div>
                     </motion.div>
 
-                    {/* (Services and Contact moved to top-level pages; portal cards removed) */}
+                    {/* Safe Journey */}
+                    <motion.div
+                        className="portal-card"
+                        onClick={() => navigate('/dashboard/user')}
+                        variants={itemVariants}
+                        style={{ border: '2px solid var(--primary)' }}
+                    >
+                        <div className="portal-image-container">
+                            <img
+                                src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=2021&auto=format&fit=crop"
+                                alt="Safe Journey"
+                                className="portal-image"
+                            />
+                        </div>
+                        <div className="portal-info">
+                            <h3 className="portal-title" style={{ color: 'var(--primary)', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                                <Globe size={20} /> Safe Journey
+                            </h3>
+                            <p className="portal-desc">
+                                Real-time location tracking with Guardian Alerts. Start your journey now.
+                            </p>
+                        </div>
+                    </motion.div>
                 </div>
 
             </motion.div>

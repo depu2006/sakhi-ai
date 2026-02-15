@@ -55,7 +55,8 @@ const GuardianDashboard = () => {
                         overflow: 'hidden',
                         boxShadow: '0 20px 60px rgba(0,0,0,0.12)',
                         background: 'white',
-                        height: '500px',
+                        height: 'auto',
+                        minHeight: '400px',
                         display: 'flex',
                         flexDirection: 'column'
                     }}
@@ -76,24 +77,24 @@ const GuardianDashboard = () => {
                                 </pattern>
                             </defs>
                             <rect width="800" height="500" fill="url(#grid)" />
-                            
+
                             {/* Streets/Roads */}
                             <path d="M0 200 Q 200 180 400 200 T 800 200" stroke="#94a3b8" strokeWidth="16" fill="none" strokeLinecap="round" />
                             <path d="M250 0 Q 280 200 250 500" stroke="#94a3b8" strokeWidth="12" fill="none" strokeLinecap="round" />
                             <path d="M550 0 Q 550 250 550 500" stroke="#94a3b8" strokeWidth="12" fill="none" strokeLinecap="round" />
-                            
+
                             {/* Route Path - animated */}
                             <path d="M300 200 L 350 180 L 400 200 L 450 190 L 500 210" stroke="#6366f1" strokeWidth="6" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeDasharray="1000" strokeDashoffset="1000" opacity="0.8">
                                 <animate attributeName="strokeDashoffset" from="1000" to="0" dur="4s" repeatCount="indefinite" />
                             </path>
-                            
+
                             {/* Current Location Indicator */}
                             <circle cx="500" cy="210" r="10" fill="#ec4899" />
                             <circle cx="500" cy="210" r="20" fill="#ec4899" opacity="0.3">
                                 <animate attributeName="r" from="20" to="40" dur="2s" repeatCount="indefinite" />
                                 <animate attributeName="opacity" from="0.3" to="0" dur="2s" repeatCount="indefinite" />
                             </circle>
-                            
+
                             {/* Past locations */}
                             <circle cx="300" cy="200" r="4" fill="#64748b" opacity="0.6" />
                             <circle cx="350" cy="180" r="4" fill="#64748b" opacity="0.7" />

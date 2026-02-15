@@ -1,12 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Zap, Eye, User as UserIcon, TrendingUp, Heart, Shield } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
+import { useJourney } from '../context/JourneyContext';
 
 const UserDashboard = () => {
     const navigate = useNavigate();
     const { t } = useLanguage();
+    const { startJourney, isJourneyActive, destination: activeDestination } = useJourney();
+    const [showJourneyModal, setShowJourneyModal] = React.useState(false);
+    const [destination, setDestination] = React.useState("");
+    const [time, setTime] = React.useState("5");
+    const [availableContacts, setAvailableContacts] = React.useState([]);
+    const [selectedContacts, setSelectedContacts] = React.useState([]);
 
     const containerVariants = {
         hidden: { opacity: 0 },
@@ -17,6 +24,32 @@ const UserDashboard = () => {
         hidden: { y: 30, opacity: 0 },
         visible: { y: 0, opacity: 1, transition: { duration: 0.5 } }
     };
+
+    React.useEffect(() => {
+        const saved = localStorage.getItem('emergencyContacts');
+        if (saved) setAvailableContacts(JSON.parse(saved));
+    }, [showJourneyModal]); // Refresh when modal opens
+
+    const toggleContactSelection = (id) => {
+        if (selectedContacts.includes(id)) {
+            setSelectedContacts(selectedContacts.filter(cid => cid !== id));
+        } else {
+            setSelectedContacts([...selectedContacts, id]);
+        }
+    };
+
+    const handleStartJourney = () => {
+        if (destination) {
+            const contactsToNotify = availableContacts.filter(c => selectedContacts.includes(c.id));
+            startJourney(destination, parseInt(time), contactsToNotify);
+            setShowJourneyModal(false);
+            setDestination("");
+            setSelectedContacts([]);
+            navigate('/dashboard/journey');
+        }
+    };
+
+
 
     return (
         <motion.div variants={containerVariants} initial="hidden" animate="visible">
@@ -55,7 +88,7 @@ const UserDashboard = () => {
                     background: 'rgba(255,255,255,0.05)',
                     animation: 'pulse-glow 10s infinite alternate 1s'
                 }} />
-                
+
                 <div style={{ position: 'relative', zIndex: 1 }}>
                     <h1 style={{ fontFamily: 'Playfair Display, serif', fontSize: '2.8rem', margin: '0 0 12px 0', fontWeight: '700' }}>
                         Welcome Back! 👋
@@ -63,6 +96,25 @@ const UserDashboard = () => {
                     <p style={{ fontSize: '1.1rem', opacity: 0.95, margin: 0, lineHeight: '1.6' }}>
                         You're all set to stay safe and empowered. Access your tools below to track, learn, and grow.
                     </p>
+                    <button
+                        onClick={() => setShowJourneyModal(true)}
+                        style={{
+                            marginTop: '24px',
+                            background: 'white',
+                            color: 'var(--primary)',
+                            padding: '12px 24px',
+                            borderRadius: '12px',
+                            border: 'none',
+                            fontWeight: '700',
+                            cursor: 'pointer',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '8px',
+                            boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
+                        }}
+                    >
+                        <Shield size={20} /> Start Safe Journey
+                    </button>
                 </div>
             </motion.div>
 
@@ -114,6 +166,134 @@ const UserDashboard = () => {
                     onClick={() => navigate('/dashboard/profile')}
                 />
             </motion.div>
+
+            {/* Start Journey Modal */}
+            {showJourneyModal && (
+                <div style={{
+                    position: 'fixed',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    background: 'rgba(0,0,0,0.5)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    zIndex: 2000,
+                    backdropFilter: 'blur(4px)'
+                }}>
+                    <motion.div
+                        initial={{ scale: 0.9, opacity: 0 }}
+                        animate={{ scale: 1, opacity: 1 }}
+                        style={{
+                            background: 'white',
+                            padding: '32px',
+                            borderRadius: '24px',
+                            width: '90%',
+                            maxWidth: '400px',
+                            boxShadow: '0 20px 60px rgba(0,0,0,0.2)'
+                        }}
+                    >
+                        <h2 style={{ marginTop: 0, fontFamily: 'Playfair Display, serif' }}>Start Safe Journey</h2>
+                        <p style={{ color: 'var(--text-muted)', marginBottom: '24px' }}>
+                            We'll track your location and alert guardians if you don't check in.
+                        </p>
+
+                        <div style={{ marginBottom: '16px' }}>
+                            <label style={{ display: 'block', marginBottom: '8px', fontWeight: '500', color: 'var(--text-main)' }}>Destination</label>
+                            <input
+                                type="text"
+                                placeholder="Where are you going?"
+                                value={destination}
+                                onChange={(e) => setDestination(e.target.value)}
+                                style={{
+                                    width: '100%',
+                                    padding: '12px',
+                                    borderRadius: '12px',
+                                    border: '1px solid var(--border-color)',
+                                    background: '#F8F9FA',
+                                    outline: 'none'
+                                }}
+                            />
+                        </div>
+
+                        <div style={{ marginBottom: '24px' }}>
+                            <label style={{ display: 'block', marginBottom: '8px', fontWeight: '500', color: 'var(--text-main)' }}>Check-in Interval</label>
+                            <select
+                                value={time}
+                                onChange={(e) => setTime(e.target.value)}
+                                style={{
+                                    width: '100%',
+                                    padding: '12px',
+                                    borderRadius: '12px',
+                                    border: '1px solid var(--border-color)',
+                                    background: '#F8F9FA',
+                                    outline: 'none'
+                                }}
+                            >
+                                <option value="1">Every 1 Minute (Test)</option>
+                                <option value="5">Every 5 Minutes</option>
+                                <option value="10">Every 10 Minutes</option>
+                                <option value="30">Every 30 Minutes</option>
+                            </select>
+                        </div>
+
+                        <div style={{ marginBottom: '24px' }}>
+                            <label style={{ display: 'block', marginBottom: '8px', fontWeight: '500', color: 'var(--text-main)' }}>Trusted Contacts</label>
+                            <div style={{ maxHeight: '100px', overflowY: 'auto', border: '1px solid var(--border-color)', borderRadius: '12px', padding: '8px' }}>
+                                {availableContacts.length > 0 ? (
+                                    availableContacts.map(contact => (
+                                        <div key={contact.id} style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '4px 0' }}>
+                                            <input
+                                                type="checkbox"
+                                                checked={selectedContacts.includes(contact.id)}
+                                                onChange={() => toggleContactSelection(contact.id)}
+                                                style={{ width: '16px', height: '16px' }}
+                                            />
+                                            <span style={{ fontSize: '0.9rem' }}>{contact.name} ({contact.number})</span>
+                                        </div>
+                                    ))
+                                ) : (
+                                    <span style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>No contacts found. Add in Profile.</span>
+                                )}
+                            </div>
+                        </div>
+
+                        <div style={{ display: 'flex', gap: '12px' }}>
+                            <button
+                                onClick={handleStartJourney}
+                                style={{
+                                    flex: 1,
+                                    padding: '14px',
+                                    borderRadius: '12px',
+                                    border: 'none',
+                                    background: 'var(--primary)',
+                                    color: 'white',
+                                    fontWeight: '600',
+                                    cursor: 'pointer'
+                                }}
+                            >
+                                Start Journey
+                            </button>
+                            <button
+                                onClick={() => setShowJourneyModal(false)}
+                                style={{
+                                    flex: 1,
+                                    padding: '14px',
+                                    borderRadius: '12px',
+                                    border: '1px solid var(--border-color)',
+                                    background: 'white',
+                                    color: 'var(--text-muted)',
+                                    fontWeight: '600',
+                                    cursor: 'pointer'
+                                }}
+                            >
+                                Cancel
+                            </button>
+                        </div>
+                    </motion.div>
+                </div>
+            )}
         </motion.div>
     );
 };
@@ -182,7 +362,7 @@ const QuickAction = ({ icon, title, description, gradient, delay, onClick }) => 
             background: 'rgba(255,255,255,0.1)',
             pointerEvents: 'none'
         }} />
-        
+
         <div style={{ position: 'relative', zIndex: 1 }}>
             <motion.div
                 style={{
@@ -205,7 +385,7 @@ const QuickAction = ({ icon, title, description, gradient, delay, onClick }) => 
                 {description}
             </p>
         </div>
-        
+
         <motion.div
             style={{
                 display: 'flex',

@@ -1,12 +1,40 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { User, Globe, Bell, Moon, Trash2, Plus } from 'lucide-react';
+import { User, Globe, Bell, Moon, Trash2, Plus, X } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { useTheme } from '../context/ThemeContext';
 
 const Profile = () => {
     const { t, language, toggleLanguage } = useLanguage();
     const { theme, toggleTheme } = useTheme();
+
+    const [contacts, setContacts] = React.useState(() => {
+        const saved = localStorage.getItem('emergencyContacts');
+        return saved ? JSON.parse(saved) : [
+            { id: 1, name: 'Mom', number: '+91 98765 43210' },
+            { id: 2, name: 'Sister', number: '+91 87654 32109' }
+        ];
+    });
+    const [isAddingContact, setIsAddingContact] = React.useState(false);
+    const [newContactName, setNewContactName] = React.useState("");
+    const [newContactNumber, setNewContactNumber] = React.useState("");
+
+    const handleAddContact = () => {
+        if (newContactName && newContactNumber) {
+            const newContacts = [...contacts, { id: Date.now(), name: newContactName, number: newContactNumber }];
+            setContacts(newContacts);
+            localStorage.setItem('emergencyContacts', JSON.stringify(newContacts));
+            setNewContactName("");
+            setNewContactNumber("");
+            setIsAddingContact(false);
+        }
+    };
+
+    const handleDeleteContact = (id) => {
+        const newContacts = contacts.filter(c => c.id !== id);
+        setContacts(newContacts);
+        localStorage.setItem('emergencyContacts', JSON.stringify(newContacts));
+    };
 
     const containerVariants = {
         hidden: { opacity: 0 },
@@ -30,23 +58,41 @@ const Profile = () => {
             {/* Emergency Contacts */}
             <h3 style={{ marginLeft: '10px', marginBottom: '16px', fontSize: '1.25rem', color: 'var(--text-main)' }}>{t('emergencyContacts')}</h3>
             <div className="glass-panel" style={{ padding: '24px', marginBottom: '40px' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '16px 0', borderBottom: '1px solid var(--border-color)' }}>
-                    <span style={{ fontSize: '1.1rem', fontWeight: '500' }}>Mom</span>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-                        <span style={{ color: 'var(--text-muted)' }}>+91 98765 43210</span>
-                        <Trash2 size={20} color="var(--danger)" style={{ cursor: 'pointer' }} />
+                {contacts.map(contact => (
+                    <div key={contact.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '16px 0', borderBottom: '1px solid var(--border-color)' }}>
+                        <span style={{ fontSize: '1.1rem', fontWeight: '500' }}>{contact.name}</span>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+                            <span style={{ color: 'var(--text-muted)' }}>{contact.number}</span>
+                            <Trash2 size={20} color="var(--danger)" style={{ cursor: 'pointer' }} onClick={() => handleDeleteContact(contact.id)} />
+                        </div>
                     </div>
-                </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '16px 0' }}>
-                    <span style={{ fontSize: '1.1rem', fontWeight: '500' }}>Sister</span>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-                        <span style={{ color: 'var(--text-muted)' }}>+91 87654 32109</span>
-                        <Trash2 size={20} color="var(--danger)" style={{ cursor: 'pointer' }} />
+                ))}
+
+                {isAddingContact ? (
+                    <div style={{ marginTop: '20px', display: 'flex', gap: '8px', alignItems: 'center' }}>
+                        <input
+                            placeholder="Name"
+                            value={newContactName}
+                            onChange={(e) => setNewContactName(e.target.value)}
+                            style={{ padding: '8px', borderRadius: '8px', border: '1px solid var(--border-color)', width: '120px' }}
+                        />
+                        <input
+                            placeholder="Number"
+                            value={newContactNumber}
+                            onChange={(e) => setNewContactNumber(e.target.value)}
+                            style={{ padding: '8px', borderRadius: '8px', border: '1px solid var(--border-color)', flex: 1 }}
+                        />
+                        <button onClick={handleAddContact} style={{ padding: '8px 12px', background: 'var(--primary)', color: 'white', borderRadius: '8px', border: 'none', cursor: 'pointer' }}>Save</button>
+                        <button onClick={() => setIsAddingContact(false)} style={{ padding: '8px', background: 'none', border: 'none', cursor: 'pointer' }}><X size={18} /></button>
                     </div>
-                </div>
-                <button style={{ marginTop: '20px', display: 'flex', alignItems: 'center', gap: '8px', background: 'none', border: 'none', color: 'var(--primary)', cursor: 'pointer', fontSize: '1rem', fontWeight: '500' }}>
-                    <Plus size={20} /> {t('addContact')}
-                </button>
+                ) : (
+                    <button
+                        onClick={() => setIsAddingContact(true)}
+                        style={{ marginTop: '20px', display: 'flex', alignItems: 'center', gap: '8px', background: 'none', border: 'none', color: 'var(--primary)', cursor: 'pointer', fontSize: '1rem', fontWeight: '500' }}
+                    >
+                        <Plus size={20} /> {t('addContact')}
+                    </button>
+                )}
             </div>
 
             {/* Settings */}
